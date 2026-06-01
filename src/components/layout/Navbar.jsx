@@ -99,13 +99,13 @@ export default function Navbar({ onJoinWaitlist }) {
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.25 }}
             className="fixed top-16 left-0 right-0 z-40 glass-strong border-b border-white/10
-                       px-6 pt-4 pb-6 flex flex-col gap-1 md:hidden"
+                       px-6 pt-4 pb-6 flex flex-col gap-1 md:hidden max-h-[calc(100vh-4rem)] overflow-y-auto"
           >
             {navLinks.map((link) => (
               <button
                 key={link.label}
                 onClick={() => handleNav(link.href)}
-                className="text-left text-white font-medium py-3 border-b border-white/06
+                className="text-left text-white font-medium py-3 border-b border-white/5
                            hover:text-accent transition-colors text-sm"
               >
                 {link.label}

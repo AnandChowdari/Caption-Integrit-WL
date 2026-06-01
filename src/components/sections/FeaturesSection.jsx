@@ -100,7 +100,7 @@ export default function FeaturesSection() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section id="features" className="section-pad bg-bg-secondary relative">
+    <section id="features" className="section-pad bg-bg-secondary relative scroll-mt-20">
       {/* Background */}
       <div className="absolute inset-0 grid-bg opacity-50" />
 

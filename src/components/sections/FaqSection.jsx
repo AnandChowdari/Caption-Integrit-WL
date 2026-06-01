@@ -93,7 +93,7 @@ function FaqItem({ question, answer, isOpen, onToggle, index }) {
       <button
         id={`faq-item-${index}`}
         onClick={onToggle}
-        className="w-full flex items-center justify-between px-6 py-5 text-left group"
+        className="w-full flex items-center justify-between px-4 sm:px-6 py-4 sm:py-5 text-left group"
         aria-expanded={isOpen}
       >
         <span
@@ -126,7 +126,7 @@ function FaqItem({ question, answer, isOpen, onToggle, index }) {
             transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
             className="accordion-content"
           >
-            <p className="px-6 pb-5 text-text-muted text-sm leading-relaxed">{answer}</p>
+            <p className="px-4 sm:px-6 pb-4 sm:pb-5 text-text-muted text-sm leading-relaxed">{answer}</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -136,11 +136,12 @@ function FaqItem({ question, answer, isOpen, onToggle, index }) {
 
 export default function FaqSection() {
   const [openIndex, setOpenIndex] = useState(0)
+  const [showAll, setShowAll] = useState(false)
 
   const toggle = (i) => setOpenIndex(openIndex === i ? null : i)
 
   return (
-    <section id="faq" className="section-pad bg-bg-secondary relative">
+    <section id="faq" className="section-pad bg-bg-secondary relative scroll-mt-20">
       <div className="absolute inset-0 grid-bg opacity-30" />
 
       <div className="max-w-3xl mx-auto px-6 relative z-10">
@@ -167,7 +168,7 @@ export default function FaqSection() {
 
         {/* Accordion */}
         <div className="flex flex-col gap-3">
-          {faqs.map((faq, i) => (
+          {(showAll ? faqs : faqs.slice(0, 5)).map((faq, i) => (
             <FaqItem
               key={i}
               index={i}
@@ -178,6 +179,17 @@ export default function FaqSection() {
             />
           ))}
         </div>
+
+        {faqs.length > 5 && (
+          <div className="text-center mt-8">
+            <button
+              onClick={() => setShowAll(!showAll)}
+              className="btn-secondary px-6 py-2.5 rounded-lg text-sm transition-all duration-300 inline-flex items-center gap-2"
+            >
+              <span>{showAll ? 'Show Less' : 'Show More'}</span>
+            </button>
+          </div>
+        )}
       </div>
     </section>
   )

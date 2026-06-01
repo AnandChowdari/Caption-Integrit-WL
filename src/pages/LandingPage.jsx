@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Navbar from '../components/layout/Navbar'
 import Footer from '../components/layout/Footer'
 import HeroSection from '../components/sections/HeroSection'
+import InteractiveDecoder from '../components/sections/InteractiveDecoder'
 import FeaturesSection from '../components/sections/FeaturesSection'
 import DemoSection from '../components/sections/DemoSection'
 import StatsSection from '../components/sections/StatsSection'
@@ -19,6 +20,7 @@ export default function LandingPage() {
       <Navbar onJoinWaitlist={openWaitlist} />
       <main>
         <HeroSection onJoinWaitlist={openWaitlist} />
+        <InteractiveDecoder />
         <FeaturesSection />
         <DemoSection />
         <StatsSection />

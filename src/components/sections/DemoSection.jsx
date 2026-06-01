@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 
 export default function DemoSection() {
   return (
-    <section id="demo" className="section-pad bg-bg-primary relative overflow-hidden">
+    <section id="demo" className="section-pad bg-bg-primary relative overflow-hidden scroll-mt-20">
       {/* Background glow */}
       <div
         className="absolute inset-0 pointer-events-none"

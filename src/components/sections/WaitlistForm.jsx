@@ -95,7 +95,7 @@ export default function WaitlistForm({ isOpen, onClose }) {
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="fixed inset-0 z-[100] flex items-center justify-center px-4"
+          className="fixed inset-0 z-[100] overflow-y-auto px-4 py-8 flex items-center justify-center min-h-screen"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -103,7 +103,7 @@ export default function WaitlistForm({ isOpen, onClose }) {
         >
           {/* Backdrop */}
           <motion.div
-            className="absolute inset-0 bg-black/70 backdrop-blur-md"
+            className="fixed inset-0 bg-black/70 backdrop-blur-md z-0"
             onClick={handleClose}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -116,9 +116,9 @@ export default function WaitlistForm({ isOpen, onClose }) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.92, y: 30 }}
             transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
-            className="relative z-10 w-full max-w-md"
+            className="relative z-10 w-full max-w-md my-auto"
           >
-            <div className="glass-strong rounded-2xl p-8 neon-border relative overflow-hidden">
+            <div className="glass-strong rounded-2xl p-6 sm:p-8 neon-border relative overflow-hidden">
               {/* Top accent glow */}
               <div
                 className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-px"

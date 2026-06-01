@@ -132,16 +132,16 @@ export default function HeroSection({ onJoinWaitlist }) {
           initial="hidden"
           animate="visible"
           custom={4}
-          className="mt-14 flex flex-col sm:flex-row items-center justify-center gap-6 text-text-muted text-sm"
+          className="mt-14 max-w-2xl mx-auto glass neon-border rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-0 divide-y sm:divide-y-0 sm:divide-x divide-white/10"
         >
           {[
             ['2,000+', 'Editors Waiting'],
             ['120+', 'Languages'],
             ['10,000+', 'Captions Generated'],
           ].map(([num, label]) => (
-            <div key={label} className="flex items-center gap-2">
-              <span className="font-display text-2xl text-accent">{num}</span>
-              <span className="text-text-muted text-sm">{label}</span>
+            <div key={label} className="flex flex-col sm:flex-row items-center gap-2 pt-3 sm:pt-0 first:pt-0 sm:px-6 w-full justify-center">
+              <span className="font-display text-2xl text-accent leading-none">{num}</span>
+              <span className="text-text-muted text-xs sm:text-sm font-medium tracking-wide leading-none">{label}</span>
             </div>
           ))}
         </motion.div>

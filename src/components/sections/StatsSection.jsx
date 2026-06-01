@@ -34,7 +34,7 @@ function StatItem({ value, suffix, label, prefix, start }) {
       initial={{ opacity: 0, y: 30 }}
       animate={start ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
-      className="text-center px-8"
+      className="text-center px-8 py-8 md:py-0"
     >
       <div
         className="font-display mb-3 gradient-text text-glow"
@@ -52,7 +52,7 @@ export default function StatsSection() {
   const isInView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section id="stats" className="section-pad bg-bg-secondary relative overflow-hidden">
+    <section id="stats" className="section-pad bg-bg-secondary relative overflow-hidden scroll-mt-20">
       {/* Top and bottom accent lines */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
