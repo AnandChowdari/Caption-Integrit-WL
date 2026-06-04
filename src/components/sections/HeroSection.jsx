@@ -1,73 +1,64 @@
 import { motion } from 'framer-motion'
-import { ArrowRight, Play } from 'lucide-react'
-import ParticleField from '../ui/ParticleField'
+import InlineWaitlistForm from '../ui/InlineWaitlistForm'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
   visible: (i = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, delay: i * 0.15, ease: [0.4, 0, 0.2, 1] },
+    transition: { type: "spring", stiffness: 200, damping: 20, delay: i * 0.15 },
   }),
 }
 
-export default function HeroSection({ onJoinWaitlist }) {
-  const scrollToWaitlist = () => {
-    if (onJoinWaitlist) onJoinWaitlist()
-  }
-  const scrollToDemo = () => {
-    document.querySelector('#demo')?.scrollIntoView({ behavior: 'smooth' })
-  }
-
+export default function HeroSection() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-bg-primary grid-bg"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      style={{ background: '#0a0a0a' }}
     >
-      {/* Particle Field */}
-      <div className="absolute inset-0 z-0">
-        <ParticleField />
-      </div>
-
-      {/* Neon Orbs */}
-      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+      {/* Radial gradient glow behind headline */}
+      <div className="absolute inset-0 pointer-events-none">
         <div
-          className="orb-1 absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full orb-1"
           style={{
-            background: 'radial-gradient(circle, rgba(195,255,51,0.12) 0%, transparent 70%)',
-            filter: 'blur(40px)',
-          }}
-        />
-        <div
-          className="orb-2 absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full"
-          style={{
-            background: 'radial-gradient(circle, rgba(195,255,51,0.08) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(198,255,52,0.06) 0%, transparent 60%)',
             filter: 'blur(60px)',
           }}
         />
         <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full"
+          className="absolute top-1/3 right-1/4 w-[400px] h-[400px] rounded-full orb-2"
           style={{
-            background: 'radial-gradient(circle, rgba(195,255,51,0.04) 0%, transparent 60%)',
+            background: 'radial-gradient(circle, rgba(198,255,52,0.04) 0%, transparent 70%)',
             filter: 'blur(80px)',
           }}
         />
       </div>
 
+      {/* Subtle dot grid */}
+      <div className="absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px)',
+          backgroundSize: '32px 32px',
+        }}
+      />
+
       {/* Content */}
-      <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
-        {/* Eyebrow */}
+      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto pt-24 pb-20">
+        {/* Badge */}
         <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          custom={0}
-          className="inline-flex items-center gap-2 mb-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          className="flex justify-center mb-8"
         >
-          <div className="glass neon-border rounded-full px-4 py-2 flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-            <span className="font-mono text-xs text-accent tracking-[0.2em] uppercase">
-              AI-Powered Caption Plugin
+          <div className="glass rounded-full px-4 py-2 flex items-center gap-2.5 border border-white/[0.08]">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
+            </span>
+            <span className="text-xs text-text-secondary tracking-wide font-medium">
+              Now in Early Access · Windows · Adobe CEP
             </span>
           </div>
         </motion.div>
@@ -78,11 +69,14 @@ export default function HeroSection({ onJoinWaitlist }) {
           initial="hidden"
           animate="visible"
           custom={1}
-          className="leading-none mb-6 font-bold"
-          style={{ fontFamily: "'Syne', system-ui, sans-serif", fontSize: 'clamp(2.75rem, 6vw, 72px)', fontWeight: 800 }}
+          className="font-display font-bold leading-[1.1] mb-6"
+          style={{ fontSize: 'clamp(2.25rem, 5.5vw, 4.5rem)' }}
         >
-          <span className="block text-white">Caption </span>
-          <span className="block gradient-text text-glow">Integrit</span>
+          <span className="text-white">AI Captions for Premiere Pro{' '}</span>
+          <span className="text-white">&amp; After Effects —{' '}</span>
+          <span className="text-accent" style={{ textShadow: '0 0 30px rgba(198,255,52,0.3)' }}>
+            Completely Free.
+          </span>
         </motion.h1>
 
         {/* Subheadline */}
@@ -91,59 +85,20 @@ export default function HeroSection({ onJoinWaitlist }) {
           initial="hidden"
           animate="visible"
           custom={2}
-          className="text-text-muted text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-10"
+          className="text-text-muted text-base sm:text-lg max-w-2xl mx-auto leading-relaxed mb-10"
         >
-          Generate multilingual captions directly inside{' '}
-          <span className="text-white font-medium">Adobe Premiere Pro</span> &{' '}
-          <span className="text-white font-medium">After Effects</span> using AI‑powered automation.
+          Generate captions in 24 languages. Native script, phonetic, or translated.
+          Powered by your own free API keys. Zero subscriptions. Zero per-minute charges.
         </motion.p>
 
-        {/* CTA Buttons */}
+        {/* Waitlist Form */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
           animate="visible"
           custom={3}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
-          <button
-            id="hero-join-waitlist"
-            onClick={scrollToWaitlist}
-            className="btn-primary flex items-center gap-2 px-8 py-4 rounded-xl text-base group"
-          >
-            Join Waitlist
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </button>
-          <button
-            id="hero-watch-demo"
-            onClick={scrollToDemo}
-            className="btn-secondary flex items-center gap-2 px-8 py-4 rounded-xl text-base group"
-          >
-            <div className="w-6 h-6 rounded-full border border-white/30 flex items-center justify-center group-hover:border-accent/50 transition-colors">
-              <Play className="w-3 h-3 fill-white ml-0.5" />
-            </div>
-            Watch Demo
-          </button>
-        </motion.div>
-
-        {/* Trust Badge */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          custom={4}
-          className="mt-14 max-w-2xl mx-auto glass neon-border rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-0 divide-y sm:divide-y-0 sm:divide-x divide-white/10"
-        >
-          {[
-            ['2,000+', 'Editors Waiting'],
-            ['120+', 'Languages'],
-            ['10,000+', 'Captions Generated'],
-          ].map(([num, label]) => (
-            <div key={label} className="flex flex-col sm:flex-row items-center gap-2 pt-3 sm:pt-0 first:pt-0 sm:px-6 w-full justify-center">
-              <span className="font-display text-2xl text-accent leading-none">{num}</span>
-              <span className="text-text-muted text-xs sm:text-sm font-medium tracking-wide leading-none">{label}</span>
-            </div>
-          ))}
+          <InlineWaitlistForm id="hero" />
         </motion.div>
       </div>
 

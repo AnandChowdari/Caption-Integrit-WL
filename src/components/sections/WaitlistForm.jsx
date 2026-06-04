@@ -103,7 +103,7 @@ export default function WaitlistForm({ isOpen, onClose }) {
         >
           {/* Backdrop */}
           <motion.div
-            className="fixed inset-0 bg-black/70 backdrop-blur-md z-0"
+            className="fixed inset-0 bg-black/85 z-0"
             onClick={handleClose}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -119,13 +119,6 @@ export default function WaitlistForm({ isOpen, onClose }) {
             className="relative z-10 w-full max-w-md my-auto"
           >
             <div className="glass-strong rounded-2xl p-6 sm:p-8 neon-border relative overflow-hidden">
-              {/* Top accent glow */}
-              <div
-                className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-px"
-                style={{
-                  background: 'linear-gradient(90deg, transparent, rgba(195,255,51,0.5), transparent)',
-                }}
-              />
 
               {/* Close button */}
               <button
@@ -171,9 +164,7 @@ export default function WaitlistForm({ isOpen, onClose }) {
                       transition={{ type: 'spring', stiffness: 200, damping: 15, delay: 0.1 }}
                       className="relative mb-6"
                     >
-                      {/* Glow rings */}
-                      <div className="absolute inset-0 rounded-full animate-ping bg-accent/20" />
-                      <div className="relative w-16 h-16 rounded-full bg-accent/10 border-2 border-accent flex items-center justify-center glow-accent">
+                      <div className="relative w-16 h-16 rounded-full bg-accent/20 border-2 border-accent flex items-center justify-center glow-accent">
                         <CheckCircle2 className="w-8 h-8 text-accent" />
                       </div>
                     </motion.div>
@@ -229,7 +220,7 @@ export default function WaitlistForm({ isOpen, onClose }) {
                           value={form.name}
                           onChange={handleChange}
                           placeholder="Alex Johnson"
-                          className={`input-field w-full pl-11 pr-4 py-3.5 rounded-xl text-sm ${errors.name ? 'error' : ''}`}
+                          className={`input-field w-full pl-11 pr-4 py-3.5 text-sm ${errors.name ? 'error' : ''}`}
                           autoComplete="name"
                         />
                       </div>
@@ -252,7 +243,7 @@ export default function WaitlistForm({ isOpen, onClose }) {
                           value={form.email}
                           onChange={handleChange}
                           placeholder="alex@studio.io"
-                          className={`input-field w-full pl-11 pr-4 py-3.5 rounded-xl text-sm ${errors.email ? 'error' : ''}`}
+                          className={`input-field w-full pl-11 pr-4 py-3.5 text-sm ${errors.email ? 'error' : ''}`}
                           autoComplete="email"
                         />
                       </div>
@@ -266,7 +257,7 @@ export default function WaitlistForm({ isOpen, onClose }) {
                       id="waitlist-submit"
                       type="submit"
                       disabled={loading}
-                      className="btn-primary w-full py-4 rounded-xl text-sm flex items-center justify-center gap-2 group mt-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                      className="btn-primary w-full py-4 text-sm flex items-center justify-center gap-2 group mt-2 disabled:opacity-70 disabled:cursor-not-allowed"
                     >
                       {loading ? (
                         <>

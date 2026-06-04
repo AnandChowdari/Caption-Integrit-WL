@@ -3,13 +3,14 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 
 const navLinks = [
+  { label: 'How It Works', href: '#how-it-works' },
   { label: 'Features', href: '#features' },
-  { label: 'Demo', href: '#demo' },
-  { label: 'Stats', href: '#stats' },
+  { label: 'Languages', href: '#languages' },
+  { label: 'Compare', href: '#compare' },
   { label: 'FAQ', href: '#faq' },
 ]
 
-export default function Navbar({ onJoinWaitlist }) {
+export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -25,6 +26,10 @@ export default function Navbar({ onJoinWaitlist }) {
     if (el) el.scrollIntoView({ behavior: 'smooth' })
   }
 
+  const scrollToHero = () => {
+    document.querySelector('#hero')?.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
     <>
       <motion.nav
@@ -33,55 +38,51 @@ export default function Navbar({ onJoinWaitlist }) {
         transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? 'glass border-b border-white/10'
+            ? 'bg-[#0a0a0a]/80 backdrop-blur-xl border-b border-white/[0.06] shadow-xl'
             : 'bg-transparent'
         }`}
       >
-        {/* Single unified row — everything aligned to the same 64px tall strip */}
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
 
-          {/* ── Logo + Wordmark ── */}
-          <a href="/" className="flex items-center gap-2.5 group flex-shrink-0">
-            <img
-              src="/logo.png"
-              alt="Integrit"
-              className="h-7 w-7 object-contain transition-all duration-300
-                         group-hover:drop-shadow-[0_0_10px_rgba(195,255,51,0.7)]"
-            />
-            <span className="font-display font-bold text-[1.4rem] leading-none text-white tracking-[0.08em]
-                             group-hover:text-accent transition-colors duration-300">
-              INTEGRIT
+          {/* Logo */}
+          <a href="/" className="flex items-center gap-2 group flex-shrink-0" aria-label="Caption Integrit Home">
+            <span className="font-display font-bold text-xl text-white tracking-tight group-hover:text-accent transition-colors duration-300">
+              Caption Integrit
             </span>
+            <span className="w-2 h-2 rounded-full bg-accent inline-block flex-shrink-0"
+              style={{ boxShadow: '0 0 8px rgba(198,255,52,0.6)' }}
+            />
           </a>
 
-          {/* ── Desktop Nav Links ── */}
-          <div className="hidden md:flex items-center gap-8">
+          {/* Desktop Nav Links */}
+          <div className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
               <button
                 key={link.label}
                 onClick={() => handleNav(link.href)}
                 className="text-text-muted hover:text-white transition-colors duration-300
-                           text-sm font-medium tracking-wide"
+                           text-sm font-medium"
               >
                 {link.label}
               </button>
             ))}
           </div>
 
-          {/* ── CTA ── */}
-          <div className="hidden md:flex items-center">
+          {/* CTA */}
+          <div className="hidden lg:flex items-center">
             <button
-              onClick={() => { setMenuOpen(false); onJoinWaitlist?.() }}
-              className="btn-primary px-5 py-2 rounded-lg text-sm"
+              id="nav-join-waitlist"
+              onClick={scrollToHero}
+              className="btn-primary px-5 py-2.5 text-sm"
             >
               Join Waitlist
             </button>
           </div>
 
-          {/* ── Mobile Toggle ── */}
+          {/* Mobile Toggle */}
           <button
             id="nav-menu-toggle"
-            className="md:hidden text-white p-1.5"
+            className="lg:hidden text-white p-1.5"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
           >
@@ -90,16 +91,15 @@ export default function Navbar({ onJoinWaitlist }) {
         </div>
       </motion.nav>
 
-      {/* ── Mobile Menu ── */}
+      {/* Mobile Menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.25 }}
-            className="fixed top-16 left-0 right-0 z-40 glass-strong border-b border-white/10
-                       px-6 pt-4 pb-6 flex flex-col gap-1 md:hidden max-h-[calc(100vh-4rem)] overflow-y-auto"
+            transition={{ type: "spring", stiffness: 400, damping: 25 }}
+            className="fixed top-16 left-0 right-0 z-40 bg-[#0a0a0a]/95 backdrop-blur-xl border-b border-white/[0.06] px-6 pt-4 pb-6 flex flex-col gap-1 lg:hidden"
           >
             {navLinks.map((link) => (
               <button
@@ -112,8 +112,8 @@ export default function Navbar({ onJoinWaitlist }) {
               </button>
             ))}
             <button
-              onClick={() => { setMenuOpen(false); onJoinWaitlist?.() }}
-              className="btn-primary w-full py-3 rounded-lg text-sm mt-3"
+              onClick={() => { setMenuOpen(false); scrollToHero() }}
+              className="btn-primary w-full py-3 text-sm mt-3"
             >
               Join Waitlist
             </button>
@@ -123,4 +123,3 @@ export default function Navbar({ onJoinWaitlist }) {
     </>
   )
 }
-

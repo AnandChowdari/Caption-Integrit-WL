@@ -33,11 +33,11 @@ function StatItem({ value, suffix, label, prefix, start }) {
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       animate={start ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
       className="text-center px-8 py-8 md:py-0"
     >
       <div
-        className="font-display mb-3 gradient-text text-glow"
+        className="font-display mb-3 text-accent drop-shadow-[4px_4px_0px_#ffffff]"
         style={{ fontSize: 'clamp(3rem, 7vw, 5.5rem)', lineHeight: 1 }}
       >
         {prefix}{count.toLocaleString()}{suffix}
@@ -53,17 +53,6 @@ export default function StatsSection() {
 
   return (
     <section id="stats" className="section-pad bg-bg-secondary relative overflow-hidden scroll-mt-20">
-      {/* Top and bottom accent lines */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
-
-      {/* Background glow */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse 80% 60% at 50% 50%, rgba(195,255,51,0.04) 0%, transparent 70%)',
-        }}
-      />
 
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         <motion.div
@@ -88,7 +77,7 @@ export default function StatsSection() {
 
         <div
           ref={ref}
-          className="flex flex-col md:flex-row items-center justify-center divide-y md:divide-y-0 md:divide-x divide-white/08"
+          className="flex flex-col md:flex-row items-center justify-center divide-y-2 md:divide-y-0 md:divide-x-2 divide-[rgba(255,255,255,0.8)]"
         >
           {stats.map((stat) => (
             <StatItem key={stat.label} {...stat} start={isInView} />

@@ -1,33 +1,33 @@
-import { useState } from 'react'
 import Navbar from '../components/layout/Navbar'
 import Footer from '../components/layout/Footer'
 import HeroSection from '../components/sections/HeroSection'
-import InteractiveDecoder from '../components/sections/InteractiveDecoder'
+import ProblemSection from '../components/sections/ProblemSection'
+import HowItWorksSection from '../components/sections/HowItWorksSection'
 import FeaturesSection from '../components/sections/FeaturesSection'
-import DemoSection from '../components/sections/DemoSection'
-import StatsSection from '../components/sections/StatsSection'
+import LanguageMarquee from '../components/sections/LanguageMarquee'
+import ComparisonSection from '../components/sections/ComparisonSection'
+import CaptionModesSection from '../components/sections/CaptionModesSection'
+import TechSection from '../components/sections/TechSection'
 import FaqSection from '../components/sections/FaqSection'
-import WaitlistForm from '../components/sections/WaitlistForm'
+import FinalCtaSection from '../components/sections/FinalCtaSection'
 
 export default function LandingPage() {
-  const [waitlistOpen, setWaitlistOpen] = useState(false)
-
-  const openWaitlist = () => setWaitlistOpen(true)
-  const closeWaitlist = () => setWaitlistOpen(false)
-
   return (
-    <div className="min-h-screen bg-bg-primary">
-      <Navbar onJoinWaitlist={openWaitlist} />
+    <div className="min-h-screen" style={{ background: '#0a0a0a' }}>
+      <Navbar />
       <main>
-        <HeroSection onJoinWaitlist={openWaitlist} />
-        <InteractiveDecoder />
+        <HeroSection />
+        <ProblemSection />
+        <HowItWorksSection />
         <FeaturesSection />
-        <DemoSection />
-        <StatsSection />
+        <LanguageMarquee />
+        <ComparisonSection />
+        <CaptionModesSection />
+        <TechSection />
         <FaqSection />
+        <FinalCtaSection />
       </main>
       <Footer />
-      <WaitlistForm isOpen={waitlistOpen} onClose={closeWaitlist} />
     </div>
   )
 }

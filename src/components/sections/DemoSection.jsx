@@ -35,20 +35,13 @@ export default function DemoSection() {
 
         {/* Video Container */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.97 }}
+          initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
-          className="relative rounded-2xl overflow-hidden glass-strong neon-border group"
+          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          className="relative rounded-2xl overflow-hidden glass-strong group"
           style={{ aspectRatio: '16 / 9' }}
         >
-          {/* Glow border effect */}
-          <div
-            className="absolute inset-0 rounded-2xl pointer-events-none z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-            style={{
-              boxShadow: 'inset 0 0 60px rgba(195,255,51,0.06)',
-            }}
-          />
 
           {/* Video */}
           <video
@@ -62,7 +55,7 @@ export default function DemoSection() {
           </video>
 
           {/* Corner badge */}
-          <div className="absolute top-4 left-4 z-20 glass rounded-lg px-3 py-1.5 flex items-center gap-2 pointer-events-none">
+          <div className="absolute top-4 left-4 z-20 glass neon-border rounded-lg px-3 py-1.5 flex items-center gap-2 pointer-events-none">
             <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
             <span className="font-mono text-xs text-accent">LIVE DEMO</span>
           </div>

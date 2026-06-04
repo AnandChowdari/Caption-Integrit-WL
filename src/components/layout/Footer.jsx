@@ -1,79 +1,53 @@
-import { Twitter, Linkedin, Github } from 'lucide-react'
-
-const footerLinks = {
-  Product: ['Features', 'Demo', 'Pricing', 'Changelog'],
-  Company: ['About', 'Blog', 'Careers', 'Press'],
-  Support: ['Documentation', 'FAQ', 'Contact', 'Status'],
-}
-
 export default function Footer() {
+  const handleNav = (href) => {
+    const el = document.querySelector(href)
+    if (el) el.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  const links = [
+    { label: 'How It Works', href: '#how-it-works' },
+    { label: 'Features', href: '#features' },
+    { label: 'Languages', href: '#languages' },
+    { label: 'Compare', href: '#compare' },
+    { label: 'FAQ', href: '#faq' },
+  ]
+
   return (
-    <footer className="bg-bg-secondary border-t border-white/08">
-      <div className="max-w-7xl mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
-          {/* Brand */}
-          <div className="lg:col-span-2">
-            <div className="flex items-center gap-2 mb-4">
-              <img
-                src="/logo.png"
-                alt="Integrit logo"
-                className="w-9 h-9 object-contain drop-shadow-[0_0_8px_rgba(195,255,51,0.5)]"
+    <footer className="relative" style={{ background: '#080808', borderTop: '1px solid rgba(198,255,52,0.08)' }}>
+      <div className="max-w-7xl mx-auto px-6 py-12">
+        <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-8">
+          {/* Left: Brand */}
+          <div className="text-center md:text-left">
+            <div className="flex items-center gap-2 justify-center md:justify-start mb-2">
+              <span className="font-display font-bold text-lg text-white tracking-tight">
+                Caption Integrit
+              </span>
+              <span className="w-1.5 h-1.5 rounded-full bg-accent inline-block"
+                style={{ boxShadow: '0 0 6px rgba(198,255,52,0.6)' }}
               />
-              <span className="font-display font-bold text-2xl text-white tracking-wider">INTEGRIT</span>
             </div>
-            <p className="text-text-muted text-sm leading-relaxed max-w-xs">
-              AI-powered multilingual caption generation plugin for Adobe Premiere Pro & After Effects. Build faster. Reach further.
+            <p className="text-text-muted text-sm">
+              AI-Powered Captions. Free Forever.
             </p>
-            <div className="flex gap-4 mt-6">
-              {[Twitter, Linkedin, Github].map((Icon, i) => (
-                <a
-                  key={i}
-                  href="#"
-                  className="w-9 h-9 rounded-lg glass flex items-center justify-center text-text-muted hover:text-accent hover:border-accent/30 transition-all duration-300"
-                >
-                  <Icon className="w-4 h-4" />
-                </a>
-              ))}
-            </div>
           </div>
 
-          {/* Links */}
-          {Object.entries(footerLinks).map(([category, links]) => (
-            <div key={category}>
-              <h4 className="font-mono text-xs text-accent tracking-widest uppercase mb-4">
-                {category}
-              </h4>
-              <ul className="space-y-3">
-                {links.map((link) => (
-                  <li key={link}>
-                    <a
-                      href="#"
-                      className="text-text-muted hover:text-white text-sm transition-colors duration-300"
-                    >
-                      {link}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-16 pt-8 border-t border-white/08 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-text-muted text-xs">
-            © {new Date().getFullYear()} Integrit. All rights reserved.
-          </p>
-          <div className="flex gap-6">
-            {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((item) => (
-              <a key={item} href="#" className="text-text-muted hover:text-white text-xs transition-colors duration-300">
-                {item}
-              </a>
+          {/* Center: Nav Links */}
+          <nav className="flex flex-wrap items-center justify-center gap-6">
+            {links.map((link) => (
+              <button
+                key={link.label}
+                onClick={() => handleNav(link.href)}
+                className="text-text-muted hover:text-white text-sm transition-colors duration-300"
+              >
+                {link.label}
+              </button>
             ))}
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            <span className="text-text-muted text-xs font-mono">All systems operational</span>
-          </div>
+          </nav>
+
+          {/* Right: Copyright */}
+          <p className="text-text-muted text-xs text-center md:text-right">
+            © {new Date().getFullYear()} Caption Integrit.<br className="hidden sm:block" /> All rights reserved.
+          </p>
         </div>
       </div>
     </footer>

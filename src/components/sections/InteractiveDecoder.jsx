@@ -126,7 +126,7 @@ export default function InteractiveDecoder() {
       ))
     }
 
-    const l = LANGS[currentLangIdx]
+    const l = LANGS[currentLangIdx] || LANGS[0]
     return SOURCE.map((srcChar, i) => {
       if (i < lockedChars) {
         return (
@@ -151,7 +151,7 @@ export default function InteractiveDecoder() {
   }
 
   const renderScriptPreview = (idx) => {
-    const l = LANGS[idx]
+    const l = LANGS[idx] || LANGS[0]
     if (idx < currentLangIdx) return l.chars.join('')
     if (idx > currentLangIdx || isSequenceComplete) return '········'
     
@@ -211,7 +211,7 @@ export default function InteractiveDecoder() {
           initial={{ opacity: 0, scale: 0.98, y: 20 }}
           whileInView={{ opacity: 1, scale: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+          transition={{ type: "spring", stiffness: 300, damping: 20 }}
           className="w-full bg-[#141414] rounded-2xl overflow-hidden border border-white/10 shadow-[0_24px_50px_-12px_rgba(0,0,0,0.7)] group relative"
         >
           {/* Accent glow on hover */}
@@ -255,7 +255,7 @@ export default function InteractiveDecoder() {
 
             {/* Language Badge */}
             <div
-              className="absolute top-4 right-4 border rounded-full px-3 py-1 text-xs font-mono flex items-center gap-2 transition-colors duration-500 bg-black/40 backdrop-blur-sm"
+              className="absolute top-4 right-4 border rounded-full px-3 py-1 text-xs font-mono flex items-center gap-2 transition-colors duration-500 bg-black/80"
               style={{
                 borderColor: currentLangObj.color,
                 color: currentLangObj.color,

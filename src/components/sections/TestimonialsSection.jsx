@@ -61,7 +61,7 @@ const cardVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.4, 0, 0.2, 1] },
+    transition: { type: "spring", stiffness: 300, damping: 20 },
   },
 }
 
@@ -69,9 +69,9 @@ function TestimonialCard({ quote, name, role, company, initials }) {
   return (
     <motion.div
       variants={cardVariants}
-      whileHover={{ y: -4 }}
+      whileHover={{ scale: 1.03, rotate: -1 }}
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-      className="glass rounded-2xl p-6 neon-border relative overflow-hidden group"
+      className="glass p-6 relative overflow-hidden group"
     >
       {/* Quote mark */}
       <div
@@ -86,7 +86,7 @@ function TestimonialCard({ quote, name, role, company, initials }) {
       </p>
 
       <div className="flex items-center gap-3 relative z-10">
-        <div className="w-9 h-9 rounded-full bg-accent/15 border border-accent/25 flex items-center justify-center flex-shrink-0">
+        <div className="w-10 h-10 rounded-full bg-accent/20 border border-accent/30 flex items-center justify-center flex-shrink-0">
           <span className="font-mono text-xs text-accent font-bold">{initials}</span>
         </div>
         <div>
