@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Navbar from '../components/layout/Navbar'
 import Footer from '../components/layout/Footer'
 import HeroSection from '../components/sections/HeroSection'
@@ -10,24 +11,32 @@ import CaptionModesSection from '../components/sections/CaptionModesSection'
 import TechSection from '../components/sections/TechSection'
 import FaqSection from '../components/sections/FaqSection'
 import FinalCtaSection from '../components/sections/FinalCtaSection'
+import WaitlistForm from '../components/sections/WaitlistForm'
 
 export default function LandingPage() {
+  const [isWaitlistOpen, setIsWaitlistOpen] = useState(false)
+
+  const handleOpenWaitlist = () => setIsWaitlistOpen(true)
+  const handleCloseWaitlist = () => setIsWaitlistOpen(false)
+
   return (
     <div className="min-h-screen" style={{ background: '#0a0a0a' }}>
-      <Navbar />
+      <Navbar onJoinWaitlist={handleOpenWaitlist} />
       <main>
-        <HeroSection />
-        <ProblemSection />
+        <HeroSection onJoinWaitlist={handleOpenWaitlist} />
+        <CaptionModesSection />
         <HowItWorksSection />
         <FeaturesSection />
         <LanguageMarquee />
         <ComparisonSection />
-        <CaptionModesSection />
+        <ProblemSection />
         <TechSection />
         <FaqSection />
-        <FinalCtaSection />
+        <FinalCtaSection onJoinWaitlist={handleOpenWaitlist} />
       </main>
       <Footer />
+
+      <WaitlistForm isOpen={isWaitlistOpen} onClose={handleCloseWaitlist} />
     </div>
   )
 }

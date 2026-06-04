@@ -10,7 +10,7 @@ const navLinks = [
   { label: 'FAQ', href: '#faq' },
 ]
 
-export default function Navbar() {
+export default function Navbar({ onJoinWaitlist }) {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -24,10 +24,6 @@ export default function Navbar() {
     setMenuOpen(false)
     const el = document.querySelector(href)
     if (el) el.scrollIntoView({ behavior: 'smooth' })
-  }
-
-  const scrollToHero = () => {
-    document.querySelector('#hero')?.scrollIntoView({ behavior: 'smooth' })
   }
 
   return (
@@ -72,7 +68,7 @@ export default function Navbar() {
           <div className="hidden lg:flex items-center">
             <button
               id="nav-join-waitlist"
-              onClick={scrollToHero}
+              onClick={onJoinWaitlist}
               className="btn-primary px-5 py-2.5 text-sm"
             >
               Join Waitlist
@@ -112,7 +108,7 @@ export default function Navbar() {
               </button>
             ))}
             <button
-              onClick={() => { setMenuOpen(false); scrollToHero() }}
+              onClick={() => { setMenuOpen(false); onJoinWaitlist() }}
               className="btn-primary w-full py-3 text-sm mt-3"
             >
               Join Waitlist

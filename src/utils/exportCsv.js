@@ -4,12 +4,11 @@
 export const exportToCsv = (users, filename = 'integrit-waitlist.csv') => {
   if (!users || users.length === 0) return
 
-  const headers = ['Name', 'Email', 'Mobile', 'Joined At']
+  const headers = ['Name', 'Email', 'Joined At']
   const rows = users.map((u) => [
     `"${(u.name || '').replace(/"/g, '""')}"`,
     `"${(u.email || '').replace(/"/g, '""')}"`,
-    `"${(u.mobile || '').replace(/"/g, '""')}"`,
-    `"${(u.joinedAt || '').replace(/"/g, '""')}"`,
+    `"${(u.timestamp || u.joinedAt || '').replace(/"/g, '""')}"`,
   ])
 
   const csvContent = [headers.join(','), ...rows.map((r) => r.join(','))].join('\n')

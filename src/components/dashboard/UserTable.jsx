@@ -32,7 +32,6 @@ export default function UserTable({ users }) {
             <th>#</th>
             <th>Name</th>
             <th>Email</th>
-            <th>Mobile</th>
             <th>Joined At</th>
           </tr>
         </thead>
@@ -47,8 +46,7 @@ export default function UserTable({ users }) {
               <td className="text-text-muted font-mono text-xs">{i + 1}</td>
               <td className="text-white font-medium">{user.name || '—'}</td>
               <td className="text-text-muted text-sm font-mono">{user.email || '—'}</td>
-              <td className="text-text-muted text-sm font-mono">{user.mobile || '—'}</td>
-              <td className="text-text-muted text-xs font-mono">{formatDate(user.joinedAt)}</td>
+              <td className="text-text-muted text-xs font-mono">{formatDate(user.timestamp || user.joinedAt)}</td>
             </motion.tr>
           ))}
         </tbody>

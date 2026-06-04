@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import InlineWaitlistForm from '../ui/InlineWaitlistForm'
+import { ArrowRight } from 'lucide-react'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -10,7 +10,7 @@ const fadeUp = {
   }),
 }
 
-export default function HeroSection() {
+export default function HeroSection({ onJoinWaitlist }) {
   return (
     <section
       id="hero"
@@ -72,10 +72,9 @@ export default function HeroSection() {
           className="font-display font-bold leading-[1.1] mb-6"
           style={{ fontSize: 'clamp(2.25rem, 5.5vw, 4.5rem)' }}
         >
-          <span className="text-white">AI Captions for Premiere Pro{' '}</span>
-          <span className="text-white">&amp; After Effects —{' '}</span>
+          <span className="text-white">Don't waste hours Create in seconds the caption integrit{' '}</span>
           <span className="text-accent" style={{ textShadow: '0 0 30px rgba(198,255,52,0.3)' }}>
-            Completely Free.
+            an Integrit Product
           </span>
         </motion.h1>
 
@@ -91,14 +90,31 @@ export default function HeroSection() {
           Powered by your own free API keys. Zero subscriptions. Zero per-minute charges.
         </motion.p>
 
-        {/* Waitlist Form */}
+        {/* Waitlist Button */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
           animate="visible"
           custom={3}
+          className="flex flex-col items-center justify-center gap-4"
         >
-          <InlineWaitlistForm id="hero" />
+          <div className="relative rounded-xl p-[1px] animate-border-pulse"
+            style={{
+              background: 'linear-gradient(135deg, rgba(198,255,52,0.2), rgba(198,255,52,0.05), rgba(198,255,52,0.2))',
+            }}
+          >
+            <button
+              id="hero-waitlist-trigger"
+              onClick={onJoinWaitlist}
+              className="btn-primary px-8 py-4 text-base sm:text-lg font-bold flex items-center justify-center gap-2 group whitespace-nowrap"
+            >
+              <span>Get Early Access</span>
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </button>
+          </div>
+          <p className="text-center text-text-muted text-xs sm:text-sm mt-2">
+            Built for Indian creators · Telugu, Hindi, Tamil + 21 more languages
+          </p>
         </motion.div>
       </div>
 

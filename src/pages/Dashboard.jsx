@@ -59,8 +59,7 @@ export default function Dashboard() {
     return users.filter(
       (u) =>
         (u.name || '').toLowerCase().includes(q) ||
-        (u.email || '').toLowerCase().includes(q) ||
-        (u.mobile || '').toLowerCase().includes(q)
+        (u.email || '').toLowerCase().includes(q)
     )
   }, [users, search])
 
@@ -180,7 +179,7 @@ export default function Dashboard() {
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search name, email, mobile..."
+                placeholder="Search name, email..."
                 className="input-field w-full pl-10 pr-4 py-2.5 rounded-xl text-sm"
               />
             </div>

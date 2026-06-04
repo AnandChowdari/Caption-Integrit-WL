@@ -31,6 +31,7 @@ export default function WaitlistForm({ isOpen, onClose }) {
   const [errors, setErrors] = useState(initialErrors)
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
+  const [submitError, setSubmitError] = useState('')
 
   // Lock body scroll when modal is open
   useEffect(() => {
@@ -57,10 +58,12 @@ export default function WaitlistForm({ isOpen, onClose }) {
     const { name, value } = e.target
     setForm((prev) => ({ ...prev, [name]: value }))
     if (errors[name]) setErrors((prev) => ({ ...prev, [name]: '' }))
+    if (submitError) setSubmitError('')
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setSubmitError('')
     const { errors: newErrors, valid } = validate(form)
     if (!valid) {
       setErrors(newErrors)
@@ -72,10 +75,10 @@ export default function WaitlistForm({ isOpen, onClose }) {
       await submitToGoogleSheets(form)
       setSuccess(true)
       setForm(initialForm)
+      setErrors(initialErrors)
     } catch (err) {
       console.error('Submission error:', err)
-      // Still show success — no-cors mode means we can't read the response
-      setSuccess(true)
+      setSubmitError(err.message || 'Submission failed. Please try again.')
     } finally {
       setLoading(false)
     }
@@ -86,6 +89,7 @@ export default function WaitlistForm({ isOpen, onClose }) {
     // Reset state after animation
     setTimeout(() => {
       setSuccess(false)
+      setSubmitError('')
       setForm(initialForm)
       setErrors(initialErrors)
     }, 300)
@@ -131,15 +135,15 @@ export default function WaitlistForm({ isOpen, onClose }) {
               </button>
 
               {/* Header */}
-              <div className="text-center mb-8">
-                <div className="inline-flex items-center gap-2 mb-4">
+              <div className="text-center mb-6">
+                <div className="inline-flex items-center gap-2 mb-3">
                   <div className="glass neon-border rounded-full px-3 py-1">
                     <span className="font-mono text-[10px] text-accent tracking-widest uppercase">
                       Limited Early Access
                     </span>
                   </div>
                 </div>
-                <h2 className="font-display text-4xl text-white mb-2">
+                <h2 className="font-display text-3xl text-white mb-1">
                   SECURE YOUR SPOT
                 </h2>
                 <p className="text-text-muted text-sm leading-relaxed">
@@ -204,12 +208,12 @@ export default function WaitlistForm({ isOpen, onClose }) {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="space-y-5"
+                    className="space-y-4"
                   >
                     {/* Name */}
                     <div>
-                      <label htmlFor="waitlist-name" className="block text-sm font-medium text-text-muted mb-2">
-                        Full Name
+                      <label htmlFor="waitlist-name" className="block text-xs font-medium text-text-muted mb-1.5">
+                        Full Name *
                       </label>
                       <div className="relative">
                         <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted pointer-events-none" />
@@ -220,19 +224,19 @@ export default function WaitlistForm({ isOpen, onClose }) {
                           value={form.name}
                           onChange={handleChange}
                           placeholder="Alex Johnson"
-                          className={`input-field w-full pl-11 pr-4 py-3.5 text-sm ${errors.name ? 'error' : ''}`}
+                          className={`input-field w-full pl-11 pr-4 py-3 text-sm ${errors.name ? 'error' : ''}`}
                           autoComplete="name"
                         />
                       </div>
                       {errors.name && (
-                        <p className="text-red-400 text-xs mt-1.5 font-mono">{errors.name}</p>
+                        <p className="text-red-400 text-[10px] mt-1 font-mono">{errors.name}</p>
                       )}
                     </div>
 
                     {/* Email */}
                     <div>
-                      <label htmlFor="waitlist-email" className="block text-sm font-medium text-text-muted mb-2">
-                        Email Address
+                      <label htmlFor="waitlist-email" className="block text-xs font-medium text-text-muted mb-1.5">
+                        Email Address *
                       </label>
                       <div className="relative">
                         <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted pointer-events-none" />
@@ -243,21 +247,26 @@ export default function WaitlistForm({ isOpen, onClose }) {
                           value={form.email}
                           onChange={handleChange}
                           placeholder="alex@studio.io"
-                          className={`input-field w-full pl-11 pr-4 py-3.5 text-sm ${errors.email ? 'error' : ''}`}
+                          className={`input-field w-full pl-11 pr-4 py-3 text-sm ${errors.email ? 'error' : ''}`}
                           autoComplete="email"
                         />
                       </div>
                       {errors.email && (
-                        <p className="text-red-400 text-xs mt-1.5 font-mono">{errors.email}</p>
+                        <p className="text-red-400 text-[10px] mt-1 font-mono">{errors.email}</p>
                       )}
                     </div>
+
+                    {/* Submit Error */}
+                    {submitError && (
+                      <p className="text-red-400 text-xs text-center font-mono mt-1">{submitError}</p>
+                    )}
 
                     {/* Submit */}
                     <button
                       id="waitlist-submit"
                       type="submit"
                       disabled={loading}
-                      className="btn-primary w-full py-4 text-sm flex items-center justify-center gap-2 group mt-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                      className="btn-primary w-full py-3 text-sm flex items-center justify-center gap-2 group mt-3 disabled:opacity-70 disabled:cursor-not-allowed"
                     >
                       {loading ? (
                         <>
@@ -272,8 +281,8 @@ export default function WaitlistForm({ isOpen, onClose }) {
                       )}
                     </button>
 
-                    <p className="text-center text-text-muted text-xs leading-relaxed">
-                      No spam. No credit card. Early access
+                    <p className="text-center text-text-muted text-[10px] leading-relaxed">
+                      No spam. No credit card required. Early access list.
                     </p>
                   </motion.form>
                 )}

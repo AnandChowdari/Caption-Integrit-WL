@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
-import InlineWaitlistForm from '../ui/InlineWaitlistForm'
+import { ArrowRight } from 'lucide-react'
 
-export default function FinalCtaSection() {
+export default function FinalCtaSection({ onJoinWaitlist }) {
   return (
     <section id="final-cta" className="section-pad relative overflow-hidden">
       {/* Background glow */}
@@ -29,8 +29,17 @@ export default function FinalCtaSection() {
             Join the waitlist. Early access members get a free license key — no card required.
           </p>
 
-          {/* Second instance of waitlist form */}
-          <InlineWaitlistForm id="final-cta" />
+          {/* Waitlist Button */}
+          <div className="flex justify-center">
+            <button
+              id="final-cta-waitlist-trigger"
+              onClick={onJoinWaitlist}
+              className="btn-primary px-8 py-4 text-base sm:text-lg font-bold flex items-center justify-center gap-2 group whitespace-nowrap"
+            >
+              <span>Join the Waitlist</span>
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </button>
+          </div>
 
           <motion.p
             initial={{ opacity: 0 }}

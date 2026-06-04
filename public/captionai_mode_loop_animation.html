@@ -1,0 +1,204 @@
+
+<style>
+  .wrap { padding: 2rem 1rem; font-family: var(--font-sans); }
+  .audio-bar { display: flex; align-items: center; gap: 10px; background: #111; border-radius: 12px; padding: 14px 18px; margin-bottom: 2rem; border: 0.5px solid #2a2a2a; }
+  .waveform { display: flex; align-items: center; gap: 3px; height: 32px; flex: 1; }
+  .bar { width: 4px; border-radius: 2px; background: #a3e635; animation: wave 1.2s ease-in-out infinite; }
+  .bar:nth-child(1){height:12px;animation-delay:0s}
+  .bar:nth-child(2){height:22px;animation-delay:0.1s}
+  .bar:nth-child(3){height:28px;animation-delay:0.2s}
+  .bar:nth-child(4){height:18px;animation-delay:0.3s}
+  .bar:nth-child(5){height:30px;animation-delay:0.0s}
+  .bar:nth-child(6){height:16px;animation-delay:0.15s}
+  .bar:nth-child(7){height:26px;animation-delay:0.25s}
+  .bar:nth-child(8){height:20px;animation-delay:0.05s}
+  .bar:nth-child(9){height:14px;animation-delay:0.35s}
+  .bar:nth-child(10){height:24px;animation-delay:0.1s}
+  .bar:nth-child(11){height:10px;animation-delay:0.2s}
+  .bar:nth-child(12){height:28px;animation-delay:0.0s}
+  @keyframes wave {
+    0%,100% { transform: scaleY(1); opacity: 0.6; }
+    50% { transform: scaleY(1.7); opacity: 1; }
+  }
+  .mic-icon { font-size: 20px; color: #a3e635; }
+  .audio-label { color: #a3e635; font-size: 13px; font-weight: 500; letter-spacing: 0.08em; }
+
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .card { background: #141414; border: 0.5px solid #252525; border-radius: 14px; padding: 18px 16px; position: relative; overflow: hidden; }
+  .card.popular { border: 1.5px solid #a3e635; }
+  .card-badge { position: absolute; top: 12px; right: 12px; background: #a3e635; color: #111; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; padding: 3px 9px; border-radius: 20px; }
+  .card-icon { width: 36px; height: 36px; border-radius: 8px; background: #1e2a10; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+  .card-icon span { font-size: 18px; }
+  .card-title { color: #f0f0f0; font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+  .card-desc { color: #666; font-size: 12px; margin-bottom: 14px; line-height: 1.5; }
+
+  .output-box { background: #0d0d0d; border-radius: 8px; padding: 10px 12px; border: 0.5px solid #1e1e1e; min-height: 44px; }
+  .output-lang { color: #555; font-size: 10px; letter-spacing: 0.12em; font-weight: 600; margin-bottom: 6px; }
+  .output-text { color: #a3e635; font-size: 15px; font-weight: 500; min-height: 22px; }
+
+  .cursor { display: inline-block; width: 2px; height: 16px; background: #a3e635; margin-left: 2px; vertical-align: middle; animation: blink 0.8s step-end infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .arrow-row { display: flex; justify-content: center; align-items: center; gap: 8px; margin: 1.2rem 0 1rem; }
+  .arrow-dot { width: 6px; height: 6px; border-radius: 50%; background: #a3e635; animation: pulse-dot 1.5s ease-in-out infinite; }
+  .arrow-dot:nth-child(2) { animation-delay: 0.2s; }
+  .arrow-dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes pulse-dot {
+    0%,100% { opacity: 0.2; transform: scale(0.7); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+</style>
+
+<div class="wrap">
+  <h2 class="sr-only">CaptionAI mode loop animation showing audio input converting to native script, phonetic, and translation outputs</h2>
+
+  <div class="audio-bar">
+    <i class="ti ti-microphone mic-icon" aria-hidden="true"></i>
+    <div class="waveform">
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </div>
+    <span class="audio-label" id="lang-label">TELUGU</span>
+  </div>
+
+  <div class="arrow-row">
+    <div class="arrow-dot"></div>
+    <div class="arrow-dot"></div>
+    <div class="arrow-dot"></div>
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon"><i class="ti ti-letter-t" style="color:#a3e635;font-size:18px" aria-hidden="true"></i></div>
+      <div class="card-title">Native Script</div>
+      <div class="card-desc">Keep captions in the original language.</div>
+      <div class="output-box">
+        <div class="output-lang" id="native-lang-label">TELUGU</div>
+        <div class="output-text" id="native-text"><span class="cursor"></span></div>
+      </div>
+    </div>
+    <div class="card popular">
+      <div class="card-badge">MOST POPULAR</div>
+      <div class="card-icon"><i class="ti ti-language" style="color:#a3e635;font-size:18px" aria-hidden="true"></i></div>
+      <div class="card-title">Phonetic</div>
+      <div class="card-desc">Romanize how it sounds in English letters.</div>
+      <div class="output-box">
+        <div class="output-lang" id="phonetic-lang-label">TENGLISH</div>
+        <div class="output-text" id="phonetic-text"><span class="cursor"></span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-icon"><i class="ti ti-arrows-exchange" style="color:#a3e635;font-size:18px" aria-hidden="true"></i></div>
+      <div class="card-title">Translation</div>
+      <div class="card-desc">Translate full meaning to English.</div>
+      <div class="output-box">
+        <div class="output-lang">ENGLISH</div>
+        <div class="output-text" id="translation-text"><span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const sequences = [
+  {
+    lang: "TELUGU",
+    nativeLang: "TELUGU",
+    phoneticLang: "TENGLISH",
+    native: "నేను బాగున్నాను",
+    phonetic: "nenu baagunnanu",
+    translation: "I am doing well"
+  },
+  {
+    lang: "HINDI",
+    nativeLang: "HINDI",
+    phoneticLang: "HINGLISH",
+    native: "मुझे खुशी है",
+    phonetic: "mujhe khushi hai",
+    translation: "I am happy"
+  },
+  {
+    lang: "TAMIL",
+    nativeLang: "TAMIL",
+    phoneticLang: "TANGLISH",
+    native: "நான் நலமாக இருக்கிறேன்",
+    phonetic: "naan nalamaga irukiren",
+    translation: "I am doing well"
+  },
+  {
+    lang: "MALAYALAM",
+    nativeLang: "MALAYALAM",
+    phoneticLang: "MANGLISH",
+    native: "എനിക്ക് സന്തോഷം",
+    phonetic: "enikku santhosham",
+    translation: "I feel happy"
+  }
+];
+
+let seqIdx = 0;
+let phase = 0;
+
+const nativeEl = document.getElementById("native-text");
+const phoneticEl = document.getElementById("phonetic-text");
+const translationEl = document.getElementById("translation-text");
+const langLabel = document.getElementById("lang-label");
+const nativeLangLabel = document.getElementById("native-lang-label");
+const phoneticLangLabel = document.getElementById("phonetic-lang-label");
+
+function typeText(el, text, delay, cb) {
+  el.innerHTML = '';
+  let i = 0;
+  const cursor = document.createElement('span');
+  cursor.className = 'cursor';
+  el.appendChild(cursor);
+  const iv = setInterval(() => {
+    if (i < text.length) {
+      el.insertBefore(document.createTextNode(text[i]), cursor);
+      i++;
+    } else {
+      clearInterval(iv);
+      setTimeout(() => { if(cb) cb(); }, delay);
+    }
+  }, 60);
+}
+
+function eraseText(el, cb) {
+  const iv = setInterval(() => {
+    const nodes = Array.from(el.childNodes).filter(n => n.nodeType === 3);
+    if (nodes.length > 0) {
+      const last = nodes[nodes.length - 1];
+      last.textContent = last.textContent.slice(0, -1);
+      if (last.textContent === '') el.removeChild(last);
+    } else {
+      clearInterval(iv);
+      if (cb) cb();
+    }
+  }, 30);
+}
+
+function runSequence() {
+  const seq = sequences[seqIdx];
+  langLabel.textContent = seq.lang;
+  nativeLangLabel.textContent = seq.nativeLang;
+  phoneticLangLabel.textContent = seq.phoneticLang;
+
+  typeText(nativeEl, seq.native, 100, () => {
+    typeText(phoneticEl, seq.phonetic, 100, () => {
+      typeText(translationEl, seq.translation, 2200, () => {
+        eraseText(translationEl, () => {
+          eraseText(phoneticEl, () => {
+            eraseText(nativeEl, () => {
+              seqIdx = (seqIdx + 1) % sequences.length;
+              setTimeout(runSequence, 400);
+            });
+          });
+        });
+      });
+    });
+  });
+}
+
+setTimeout(runSequence, 600);
+</script>
