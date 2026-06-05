@@ -45,8 +45,11 @@ export default function Navbar({ onJoinWaitlist }) {
             <span className="font-display font-bold text-xl text-white tracking-tight group-hover:text-accent transition-colors duration-300">
               Caption Integrit
             </span>
-            <span className="w-2 h-2 rounded-full bg-accent inline-block flex-shrink-0"
-              style={{ boxShadow: '0 0 8px rgba(198,255,52,0.6)' }}
+            <img
+              src="/logo.png"
+              alt="Integrit logo"
+              className="w-8 h-8 object-contain flex-shrink-0"
+              style={{ filter: 'drop-shadow(0 0 8px rgba(198,255,52,0.6))' }}
             />
           </a>
 

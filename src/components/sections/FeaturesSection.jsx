@@ -10,12 +10,7 @@ import {
 } from 'lucide-react'
 
 const features = [
-  {
-    icon: InfinityIcon,
-    title: '$0 Forever',
-    description:
-      'Bring your own free API keys from ElevenLabs, Deepgram, Gemini, Grok, or Groq. No subscription. No per-minute charges. The only caption plugin built this way.',
-  },
+
   {
     icon: Globe2,
     title: '24 Languages',
@@ -40,12 +35,7 @@ const features = [
     description:
       'Review before you publish. Edit text, fix timestamps, merge, split, find/replace, bulk-delete filler words. Then push to timeline when ready.',
   },
-  {
-    icon: Brain,
-    title: 'Smart AI Pipeline',
-    description:
-      'FFmpeg audio extraction → word-level STT → LLM script conversion → optional verification pass → optional translation. Multi-step accuracy, zero manual work.',
-  },
+
 ]
 
 const containerVariants = {

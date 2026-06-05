@@ -30,7 +30,7 @@ export default function LandingPage() {
         <LanguageMarquee />
         <ComparisonSection />
         <ProblemSection />
-        <TechSection />
+        {/* <TechSection /> */}
         <FaqSection />
         <FinalCtaSection onJoinWaitlist={handleOpenWaitlist} />
       </main>

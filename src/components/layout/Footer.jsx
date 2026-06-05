@@ -22,8 +22,11 @@ export default function Footer() {
               <span className="font-display font-bold text-lg text-white tracking-tight">
                 Caption Integrit
               </span>
-              <span className="w-1.5 h-1.5 rounded-full bg-accent inline-block"
-                style={{ boxShadow: '0 0 6px rgba(198,255,52,0.6)' }}
+              <img
+                src="/logo.png"
+                alt="Integrit logo"
+                className="w-6 h-6 object-contain"
+                style={{ filter: 'drop-shadow(0 0 6px rgba(198,255,52,0.6))' }}
               />
             </div>
             <p className="text-text-muted text-sm">
